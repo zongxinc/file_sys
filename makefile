@@ -2,9 +2,9 @@ override CFLAGS := -Wall -Werror -std=gnu99 -pedantic -O0 -g -pthread $(CFLAGS)
 override LDLIBS := -pthread $(LDLIBS)
 
 # Build the threads.o file
-disk.o: disk.c disk.h 
+ 
 fs.o: fs.c fs.h
-
+disk.o: disk.c disk.h
 # Automatically discover all test files
 test_c_files=$(shell find tests -not -path '*/\.*' -type f -name '*.c')
 test_o_files=$(test_c_files:.c=.o)
@@ -17,7 +17,7 @@ test_files=$(test_c_files:.c=)
 .PHONY: clean check checkprogs
 
 # Rules to build each individual test
-tests/%: tests/%.o fs.o
+tests/%: tests/%.o disk.o fs.o
 	$(CC) $(LDFLAGS) $+ $(LOADLIBES) $(LDLIBS) -o $@
 
 static_analysis:

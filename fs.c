@@ -4,6 +4,7 @@
 #include <fcntl.h>
 #include <string.h>
 #include "fs.h"
+#include "disk.h"
 #include <stdbool.h>
 #include <stdint.h> 
 
