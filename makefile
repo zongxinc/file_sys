@@ -17,7 +17,7 @@ test_files=$(test_c_files:.c=)
 .PHONY: clean check checkprogs
 
 # Rules to build each individual test
-tests/%: tests/%.o fs.o disk.o
+tests/%: tests/%.o fs.o
 	$(CC) $(LDFLAGS) $+ $(LOADLIBES) $(LDLIBS) -o $@
 
 static_analysis:
