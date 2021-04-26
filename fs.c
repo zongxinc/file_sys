@@ -30,7 +30,7 @@ struct directory_entry
 {
 	bool is_used;
 	int inode_num;
-	char *name;
+	char name[16];
 };
 
 struct file_descriptor
@@ -58,47 +58,48 @@ int make_fs(const char *disk_name)
 		return -1;
 	}
 
-	struct inode root;
-	root.file_type = 1;
-	root.direct_offset = 3;
-	my_dir_entry[0].is_used = 1;
-	my_dir_entry[0].inode_num = 3;
-	my_dir_entry[0].offset = sizeof(my_dir_entry) 
+	// struct inode root;
+	// root.file_type = 1;
+	// root.direct_offset = 3;
+	// my_dir_entry[0].is_used = 1;
+	// my_dir_entry[0].inode_num = 3;
+	// char filename[] = "root";
+	// memcpy(my_dir_entry[0].name, filename, sizeof(filename));
 
 
-	for (int i = 0; i < 64; i++)
-	{
-		my_inode[i].file_type = -1;
-		my_inode[i].direct_offset = -1;
-		my_inode[i].single_direct = -1;
-		my_inode[i].double_direct = -1;
-		my_inode[i].triple_direct = -1;
-		my_inode[i].file_size = -1;
-	}
-	char inode_buf[4096] = {0};
-	memcpy(inode_buf, my_inode, sizeof(my_inode));
-	block_write(1, inode_buf);
+	// for (int i = 0; i < 64; i++)
+	// {
+	// 	my_inode[i].file_type = -1;
+	// 	my_inode[i].direct_offset = -1;
+	// 	my_inode[i].single_direct = -1;
+	// 	my_inode[i].double_direct = -1;
+	// 	my_inode[i].triple_direct = -1;
+	// 	my_inode[i].file_size = -1;
+	// }
+	// char inode_buf[4096] = {0};
+	// memcpy(inode_buf, my_inode, sizeof(my_inode));
+	// block_write(1, inode_buf);
 
-	for (int i = 0; i < 8192; i++)
-	{
-		blocks[i] = 0;
-	}
-	blocks[0] = 1;
-	blocks[1] = 1;
-	char block_buf[4096] = {0};
-	memcpy(block_buf, blocks, sizeof(blocks));
-	block_write(2, block_buf);
+	// for (int i = 0; i < 8192; i++)
+	// {
+	// 	blocks[i] = 0;
+	// }
+	// blocks[0] = 1;
+	// blocks[1] = 1;
+	// char block_buf[4096] = {0};
+	// memcpy(block_buf, blocks, sizeof(blocks));
+	// block_write(2, block_buf);
 
 
-	struct super_block mysuper;
-	mysuper.used_block_bitmap_count = 2;
-	mysuper.used_block_bitmap_offset = sizeof(blocks);
-	mysuper.inode_metadata_blocks = 1;
-	mysuper.inode_metadata_offset = sizeof(my_inode);
-	char buf[4096] = {0};
-	memcpy(buf, mysuper, sizeof(mysuper));
-	block_write(0, buf);
-	//store metadata onto disk
+	// struct super_block *mysuper;
+	// mysuper->used_block_bitmap_count = 2;
+	// mysuper->used_block_bitmap_offset = sizeof(blocks);
+	// mysuper->inode_metadata_blocks = 1;
+	// mysuper->inode_metadata_offset = sizeof(my_inode);
+	// char buf[4096] = {0};
+	// memcpy(buf, mysuper, sizeof(mysuper));
+	// block_write(0, buf);
+	// //store metadata onto disk
 	return 0;
 
 }
